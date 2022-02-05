@@ -5,13 +5,16 @@ import visual.scripting.Graph;
 import visual.scripting.NodeData;
 import visual.scripting.Pin;
 import visual.scripting.node.NodeEntry;
+import visual.scripting.ui.Button;
+import visual.scripting.ui.listeners.ClickListener;
 
 public class JsonEntry extends NodeEntry {
 
-    private Pin inPin;
+    private JsonEntry self;
 
     public JsonEntry(Graph graph) {
         super(graph);
+        self = this;
         setLanguages(new String[]{"json"});
         setCategory("json");
         setName("JsonEntry");
@@ -20,7 +23,14 @@ public class JsonEntry extends NodeEntry {
 
     @Override
     public void init() {
-        inPin = addInputPin(Pin.DataType.String, this);
+        Button button = addButton("Test Button");
+        button.addClickListener(new ClickListener() {
+            @Override
+            public void onClicked() {
+                addInputPin(Pin.DataType.String, self);
+            }
+        });
+        addInputPin(Pin.DataType.String, this);
     }
 
     @Override
@@ -32,14 +42,35 @@ public class JsonEntry extends NodeEntry {
     public String printSource(StringBuilder sb) {
         sb.append("{");
 
-        NodeData<ImString> data = inPin.getData();
-        String input = String.valueOf(data.value.get());
+        String toPrint = "";
 
-        if(inPin.connectedTo != -1){
-            Pin pin = getGraph().findPinById(inPin.connectedTo);
-            input = pin.getNode().printSource(sb);
+        for (int i = 0; i < inputPins.size() - 1; i++) {
+            Pin inPin = inputPins.get(i);
+
+            NodeData<ImString> data = inPin.getData();
+            String input = String.valueOf(data.value.get());
+
+            if (inPin.connectedTo != -1) {
+                Pin pin = getGraph().findPinById(inPin.connectedTo);
+                input = pin.getNode().printSource(sb);
+            }
+            sb.append(input);
+            sb.append(",");
         }
-        sb.append(input);
+
+        if(inputPins.size() > 0){
+            Pin inPin = inputPins.get(inputPins.size() - 1);
+            NodeData<ImString> data = inPin.getData();
+            String input = String.valueOf(data.value.get());
+
+            if (inPin.connectedTo != -1) {
+                Pin pin = getGraph().findPinById(inPin.connectedTo);
+                input = pin.getNode().printSource(sb);
+            }
+
+            sb.append(input);
+        }
+
         sb.append("}");
         return "";
     }
