@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Plugin-Class: VisualScriptingJson
+Plugin-Id: VSJson
+Plugin-Version: 0.0.1
