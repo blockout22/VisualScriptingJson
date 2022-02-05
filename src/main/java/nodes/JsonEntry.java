@@ -23,7 +23,7 @@ public class JsonEntry extends NodeEntry {
 
     @Override
     public void init() {
-        Button button = addButton("Test Button");
+        Button button = addButton("Add Input");
         button.addClickListener(new ClickListener() {
             @Override
             public void onClicked() {
