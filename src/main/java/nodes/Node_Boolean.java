@@ -1,7 +1,6 @@
 package nodes;
 
 import imgui.type.ImBoolean;
-import imgui.type.ImInt;
 import imgui.type.ImString;
 import visual.scripting.Graph;
 import visual.scripting.NodeData;

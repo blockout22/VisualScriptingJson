@@ -6,7 +6,7 @@ import visual.scripting.NodeData;
 import visual.scripting.Pin;
 import visual.scripting.node.NodeEntry;
 import visual.scripting.ui.Button;
-import visual.scripting.ui.listeners.ClickListener;
+import visual.scripting.ui.listeners.LeftClickListener;
 
 public class JsonEntry extends NodeEntry {
 
@@ -24,7 +24,7 @@ public class JsonEntry extends NodeEntry {
     @Override
     public void init() {
         Button button = addButton("Add Input");
-        button.addClickListener(new ClickListener() {
+        button.addLeftClickListener(new LeftClickListener() {
             @Override
             public void onClicked() {
                 addInputPin(Pin.DataType.String, self);
