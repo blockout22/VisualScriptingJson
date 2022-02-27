@@ -1,10 +1,11 @@
 package nodes;
 
 import imgui.type.ImString;
+import pins.PinJsonString;
 import visual.scripting.Graph;
 import visual.scripting.NodeData;
-import visual.scripting.Pin;
 import visual.scripting.node.NodeEntry;
+import visual.scripting.pin.Pin;
 import visual.scripting.ui.Button;
 import visual.scripting.ui.listeners.LeftClickListener;
 
@@ -27,15 +28,30 @@ public class JsonEntry extends NodeEntry {
         button.addLeftClickListener(new LeftClickListener() {
             @Override
             public void onClicked() {
-                addInputPin(Pin.DataType.String, self);
+                Pin pin = new PinJsonString();
+                pin.setNode(self);
+                addCustomInput(pin);
+//                addInputPin(Pin.DataType.String, self);
             }
         });
-        addInputPin(Pin.DataType.String, this);
+        Pin pin = new PinJsonString();
+        pin.setNode(self);
+        addCustomInput(pin);
+//        addInputPin(Pin.DataType.String, this);
     }
 
     @Override
     public void execute() {
+        for (int i = 0; i < inputPins.size(); i++) {
+            Pin pin = inputPins.get(i);
+            if(pin.connectedTo != -1){
+                Pin con = getGraph().findPinById(pin.connectedTo);
 
+                NodeData<ImString> outValue = pin.getData();
+                NodeData<ImString> conValue = con.getData();
+                outValue.setValue(conValue.getValue());
+            }
+        }
     }
 
     @Override

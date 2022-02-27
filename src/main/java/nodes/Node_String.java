@@ -1,10 +1,11 @@
 package nodes;
 
 import imgui.type.ImString;
+import pins.PinJsonString;
 import visual.scripting.Graph;
 import visual.scripting.NodeData;
-import visual.scripting.Pin;
 import visual.scripting.node.Node;
+import visual.scripting.pin.Pin;
 
 public class Node_String extends Node {
 
@@ -19,9 +20,21 @@ public class Node_String extends Node {
 
     @Override
     public void init() {
-        inPinTag = addInputPin(Pin.DataType.String, this).setName("Tag");
-        inPinValue = addInputPin(Pin.DataType.String, this).setName("Value");
-        outPin = addOutputPin(Pin.DataType.String, this);
+        inPinTag = new PinJsonString();
+        inPinTag.setNode(this);
+        addCustomInput(inPinTag);
+
+        inPinValue = new PinJsonString();
+        inPinValue.setNode(this);
+        addCustomInput(inPinValue);
+
+        outPin = new PinJsonString();
+        outPin.setNode(this);
+        addCustomOutput(outPin);
+
+//        inPinTag = addInputPin(Pin.DataType.String, this).setName("Tag");
+//        inPinValue = addInputPin(Pin.DataType.String, this).setName("Value");
+//        outPin = addOutputPin(Pin.DataType.String, this);
     }
 
     @Override
