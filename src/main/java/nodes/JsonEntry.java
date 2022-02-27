@@ -42,15 +42,29 @@ public class JsonEntry extends NodeEntry {
 
     @Override
     public void execute() {
+        //set error back to nothing
+        setError("");
+        String[] tags = new String[inputPins.size()];
         for (int i = 0; i < inputPins.size(); i++) {
             Pin pin = inputPins.get(i);
+            NodeData<ImString> outValue = pin.getData();
             if(pin.connectedTo != -1){
                 Pin con = getGraph().findPinById(pin.connectedTo);
 
-                NodeData<ImString> outValue = pin.getData();
                 NodeData<ImString> conValue = con.getData();
                 outValue.getValue().set(conValue.value.get());
             }
+
+            //search for duplicate tags
+            for (int j = 0; j < i; j++) {
+                if(tags[j] != null && (i != j)) {
+                    if (tags[j].equals(outValue.value.get().split(":")[0])) {
+                        setError("Duplicate Tag Names!");
+                        break;
+                    }
+                }
+            }
+            tags[i] = outValue.value.get().split(":")[0];
         }
     }
 
