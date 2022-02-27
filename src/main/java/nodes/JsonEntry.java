@@ -49,7 +49,7 @@ public class JsonEntry extends NodeEntry {
 
                 NodeData<ImString> outValue = pin.getData();
                 NodeData<ImString> conValue = con.getData();
-                outValue.setValue(conValue.getValue());
+                outValue.getValue().set(conValue.value.get());
             }
         }
     }

@@ -22,7 +22,7 @@ public class PinJsonBoolean extends Pin {
 
     @Override
     public void draw(ImDrawList windowDrawList, float posX, float posY, boolean isConnected, boolean pinDragSame) {
-        drawDefaultCircle(windowDrawList,posX,posY,isConnected,isConnected);
+        drawDefaultCircle(windowDrawList,posX,posY,isConnected,pinDragSame, 255, 120, 0);
     }
 
     @Override
