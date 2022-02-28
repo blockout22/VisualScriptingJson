@@ -13,6 +13,7 @@ public class PinJsonInteger extends Pin {
     public PinJsonInteger(){
         setData(data);
         data.setValue(new ImInt());
+        setColor(1f, 0f, 0f, 1f);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class PinJsonInteger extends Pin {
 
     @Override
     public void draw(ImDrawList windowDrawList, float posX, float posY, boolean isConnected, boolean pinDragSame) {
-        drawDefaultCircle(windowDrawList,posX,posY,isConnected,pinDragSame, 255, 0, 0);
+        drawDefaultCircle(windowDrawList,posX,posY,isConnected,pinDragSame);
     }
 
     @Override

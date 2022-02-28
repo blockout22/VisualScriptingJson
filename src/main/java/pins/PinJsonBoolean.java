@@ -13,6 +13,7 @@ public class PinJsonBoolean extends Pin {
     public PinJsonBoolean(){
         setData(data);
         data.setValue(new ImBoolean());
+        setColor(1, 0.47f, 0f, 1f);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class PinJsonBoolean extends Pin {
 
     @Override
     public void draw(ImDrawList windowDrawList, float posX, float posY, boolean isConnected, boolean pinDragSame) {
-        drawDefaultCircle(windowDrawList,posX,posY,isConnected,pinDragSame, 255, 120, 0);
+        drawDefaultCircle(windowDrawList,posX,posY,isConnected,pinDragSame);
     }
 
     @Override
