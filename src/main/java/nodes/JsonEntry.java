@@ -24,7 +24,8 @@ public class JsonEntry extends NodeEntry {
 
     @Override
     public void init() {
-        Button button = addButton("Add Input");
+        Button button = new Button("Add Input");
+        addUiComponent(button);
         button.addLeftClickListener(new LeftClickListener() {
             @Override
             public void onClicked() {
